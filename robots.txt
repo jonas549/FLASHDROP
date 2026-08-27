@@ -1,0 +1,23 @@
+# Flash Drop — landing de proveedores
+#
+# La página que se indexa es la raíz (index.html). Las dos fuentes .dc.html se
+# publican solo para tener el proyecto versionado: son la misma landing, y sin
+# esto quedarían como contenido duplicado.
+#
+# ⚠ En un sitio de PROYECTO de GitHub Pages (jonas549.github.io/FLASHDROP/) este
+#   archivo NO se honra: los rastreadores solo leen el robots.txt de la raíz del
+#   dominio (jonas549.github.io/robots.txt), que pertenece al repo del sitio de
+#   usuario, no a este. Lo que de verdad protege hoy es el
+#   <meta name="robots" content="noindex, follow"> que llevan los dos .dc.html.
+#
+#   Este archivo pasa a valer si alguna vez se conecta un dominio propio, y
+#   mientras tanto documenta la intención.
+
+User-agent: *
+
+# Las variantes fuente, fuera del índice.
+Disallow: /*.dc.html
+
+# Todo lo demás (la raíz, support.js y assets/opt/) queda accesible: si se
+# bloquean los recursos, Google no puede renderizar la página y la evalúa mal.
+Allow: /

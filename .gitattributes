@@ -1,0 +1,10 @@
+# Sin conversión de fin de línea para nada de este repo.
+#
+# index.html es un bundle serializado a mano: su línea 388 lleva toda la página
+# como una sola cadena JSON. Que git le cambie los finales de línea no rompe el
+# parseo, pero no hay ninguna razón para arriesgarlo — así lo que se publica es
+# byte a byte lo mismo que se probó en el navegador.
+#
+# Las dos fuentes .dc.html vienen del editor DC con CRLF y conviene que vuelvan
+# a él tal cual salieron.
+* -text

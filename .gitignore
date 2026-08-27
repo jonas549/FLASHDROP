@@ -1,0 +1,64 @@
+# ═════════════════════════════════════════════════════════════════════════════
+#  Flash Drop — landing de proveedores
+#  Repo PÚBLICO servido por GitHub Pages. Lo que entra acá queda a la vista.
+# ═════════════════════════════════════════════════════════════════════════════
+
+# ── Nunca, por contenido sensible ────────────────────────────────────────────
+# Copia de referencia del Apps Script. No es código del sitio: vive dentro de la
+# Google Sheet. Lleva los correos de los destinatarios, y este repo es público.
+# El patrón cubre además cualquier archivo futuro con la misma convención.
+flashdrop-apps-script-sheet.NO-SUBIR.js
+*.NO-SUBIR.js
+
+# ── Peso muerto ──────────────────────────────────────────────────────────────
+# Export original de esta misma carpeta: 32 MB que no aportan nada, porque su
+# contenido ya está acá suelto.
+landing-proveedores-corredigo*.zip
+*.zip
+
+# Artefacto de vista previa del editor DC.
+.thumbnail
+
+# ── Originales sin optimizar ─────────────────────────────────────────────────
+# La landing referencia EXCLUSIVAMENTE assets/opt/. Estos son los originales
+# previos a la optimización (envios.png pesa 6,3 MB contra los 95 KB del .webp
+# que sí se usa). Nadie los referencia. assets/opt/ no se ve afectado por estas
+# reglas: solo excluyen los archivos sueltos en assets/, no el subdirectorio.
+/assets/*.png
+/assets/*.webp
+
+# Duplicado byte a byte de assets/hero-mobile.png (mismo MD5).
+/uploads/
+
+# Renders sueltos en la raíz, sin referencia en ningún HTML.
+/audifonos-*.png
+/portrait-asian-woman-*.webp
+
+# ── Compilado desactualizado ─────────────────────────────────────────────────
+# Export del Neon anterior a la validación, al envío y a GTM. Publicarlo sería
+# repetir la historia de export/valgo-widget.html. Si alguna vez hay que
+# publicar la variante neón, re-exportarla desde el editor DC.
+Flash Drop Landing Oscuro - Standalone.html
+
+# ── Andamiaje y basura local ─────────────────────────────────────────────────
+# Nada de esto vive hoy en la carpeta (está en el scratchpad), pero se excluye
+# por si algún script de prueba termina copiado acá.
+node_modules/
+server.js
+probar*.js
+aplicar.js
+reserializar.js
+assets.js
+gtm.js
+url.js
+backup/
+*.bak
+*.orig
+*.log
+
+# Sistema operativo / editores
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/

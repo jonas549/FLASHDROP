@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Flash Drop">
+  <rect width="512" height="512" rx="96" fill="#01404b"/>
+  <g transform="translate(160 86) scale(0.7391) translate(-470 -170)">
+    <path d="M660 170 L470 430 L580 430 L520 630 L730 360 L615 360 Z" fill="#ff7a2f"/>
+  </g>
+</svg>
