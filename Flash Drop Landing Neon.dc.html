@@ -80,6 +80,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .fd-ok h3 { margin: 14px 0 10px; font-size: 22px; font-weight: 700; color: #eefbfb; }
   .fd-ok p { margin: 0; font-size: 15px; line-height: 1.6; color: #9ec5ca; }
 
+  /* ===== Botón flotante de WhatsApp ===== */
+  /* Va acá y no dentro de la barra de [data-mobile-cta] porque esa barra depende
+     del estado showCta y solo se muestra bajo 760px: no sirve como único acceso
+     a WhatsApp. Este está siempre y en todos los anchos.
+     El verde es el de marca de WhatsApp en las DOS variantes a propósito: es un
+     logo que se reconoce por el color, y recolorearlo para que combine con el
+     tema lo vuelve más lento de encontrar.
+     z-index 95 lo deja bajo el header (100) y sobre la barra móvil (90). */
+  .fd-wa { position: fixed; right: clamp(16px,3vw,28px); bottom: clamp(16px,3vw,28px); z-index: 95; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #25D366; color: #ffffff; box-shadow: 0 0 0 1px rgba(20,231,214,.22), 0 10px 34px rgba(37,211,102,.5); transition: transform .2s ease, box-shadow .2s ease; }
+  .fd-wa:hover { color: #ffffff; transform: translateY(-3px); box-shadow: 0 0 0 1px rgba(20,231,214,.42), 0 16px 44px rgba(37,211,102,.68); }
+  .fd-wa i { font-size: 30px; }
+  /* Bajo 760px aparece la barra fija de CTA (~76px + safe area). El botón sube
+     siempre, no solo cuando la barra está montada: un desplazamiento fijo no
+     depende de :has() ni del estado de React, así que no tiene cómo fallar. */
+  @media (max-width: 760px) {
+    .fd-wa { width: 52px; height: 52px; bottom: calc(84px + env(safe-area-inset-bottom)); }
+    .fd-wa i { font-size: 27px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fd-wa { transition: none; }
+    .fd-wa:hover { transform: none; }
+  }
+
   @media (min-width: 1241px) {
     [data-h2-oneline] { white-space: nowrap; }
     div:has(> [data-h2-oneline]) { max-width: 1120px !important; }
@@ -483,7 +506,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div style="display: inline-flex; margin-bottom: 18px; padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(20,231,214,.35); background: rgba(20,231,214,.07); font-family: 'Inter', sans-serif; font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: #14e7d6;">Preguntas frecuentes</div>
         <h2 style="margin: 0 0 24px; font-size: clamp(26px,3.4vw,32px); line-height: 1.18; font-weight: 700; letter-spacing: -.03em;" data-h2="1"><span style="color: #09B2A5; text-shadow: 0px 0px 40px #04887E00">Antes de publicar</span> tu catálogo</h2>
         <p style="margin: 0 0 32px; max-width: 44ch; font-size: 16.5px; line-height: 1.55; color: #a9cdd2;">Conversa con un ejecutivo, resolvemos todas tus dudas en una llamada breve.</p>
-        <a href="#whatsapp" style="display: inline-flex; align-items: center; gap: 9px; padding: 14px 22px; border-radius: 12px; border: 1px solid rgba(20,231,214,.4); background: rgba(20,231,214,.07); color: #14e7d6; font-size: 14.5px; font-weight: 600;" style-hover="background: rgba(20,231,214,.16); color: #14e7d6;"><i aria-hidden="true" class="ph ph-calendar-blank" style="font-size: 17px;"></i>Agendar llamada</a>
+        <a href="https://wa.me/56927094768?text=Hola%20%F0%9F%91%8B%20Vengo%20de%20la%20web%20de%20proveedores%20de%20Flash%20Drop%20y%20quiero%20agendar%20una%20llamada." target="_blank" rel="noopener" data-cta="agendar-llamada" data-ubicacion="faq" style="display: inline-flex; align-items: center; gap: 9px; padding: 14px 22px; border-radius: 12px; border: 1px solid rgba(20,231,214,.4); background: rgba(20,231,214,.07); color: #14e7d6; font-size: 14.5px; font-weight: 600;" style-hover="background: rgba(20,231,214,.16); color: #14e7d6;"><i aria-hidden="true" class="ph ph-whatsapp-logo" style="font-size: 17px;"></i>Agendar llamada</a>
       </div>
       <div style="display: flex; flex-direction: column;">
         <details style="border-bottom: 1px solid rgba(255,255,255,.09); padding: 20px 0;">
@@ -524,7 +547,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div style="display: flex; flex-direction: column; gap: 12px;">
           <a href="#postular" style="display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 17px 26px; border-radius: 12px; background: linear-gradient(135deg, #ff7a2f, #ff5a00); color: #FFFFFF; font-size: 16px; font-weight: 700; box-shadow: 0 0 0 1px rgba(255,180,130,.5) inset, 0 14px 40px rgba(255,106,26,.4)" style-hover="color: #12070a; transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(255,200,160,.7) inset, 0 18px 52px rgba(255,106,26,.55);">Únete como proveedor <i aria-hidden="true" class="ph ph-arrow-right" style="font-size: 16px;"></i></a>
-          <a href="#whatsapp" style="display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 17px 26px; border-radius: 12px; border: 1px solid rgba(20,231,214,.4); background: rgba(20,231,214,.07); color: #14e7d6; font-size: 16px; font-weight: 600;" style-hover="background: rgba(20,231,214,.16); color: #14e7d6;"><i aria-hidden="true" class="ph ph-calendar-blank" style="font-size: 16px;"></i>Agendar llamada</a>
+          <a href="https://wa.me/56927094768?text=Hola%20%F0%9F%91%8B%20Vengo%20de%20la%20web%20de%20proveedores%20de%20Flash%20Drop%20y%20quiero%20agendar%20una%20llamada." target="_blank" rel="noopener" data-cta="agendar-llamada" data-ubicacion="cta-final" style="display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 17px 26px; border-radius: 12px; border: 1px solid rgba(20,231,214,.4); background: rgba(20,231,214,.07); color: #14e7d6; font-size: 16px; font-weight: 600;" style-hover="background: rgba(20,231,214,.16); color: #14e7d6;"><i aria-hidden="true" class="ph ph-whatsapp-logo" style="font-size: 16px;"></i>Agendar llamada</a>
         </div>
       </div>
     </div>
@@ -542,10 +565,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <sc-if value="{{ showCta }}" hint-placeholder-val="{{ false }}">
     <div style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; display: none; gap: 10px; padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); background: rgba(1,58,68,.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(255,255,255,.1);" data-mobile-cta="1">
-      <a href="#whatsapp" aria-label="WhatsApp" style="width: 52px; height: 52px; flex: none; border-radius: 12px; border: 1px solid rgba(20,231,214,.4); display: flex; align-items: center; justify-content: center; color: #14e7d6;"><i aria-hidden="true" class="ph ph-whatsapp-logo" style="font-size: 24px;"></i></a>
+      <a href="https://wa.me/56927094768?text=Hola%20%F0%9F%91%8B%20Vengo%20de%20la%20web%20de%20proveedores%20de%20Flash%20Drop%20y%20quiero%20publicar%20mi%20cat%C3%A1logo." target="_blank" rel="noopener" data-cta="whatsapp" data-ubicacion="barra-movil" aria-label="Escríbenos por WhatsApp" style="width: 52px; height: 52px; flex: none; border-radius: 12px; border: 1px solid rgba(20,231,214,.4); display: flex; align-items: center; justify-content: center; color: #14e7d6;"><i aria-hidden="true" class="ph ph-whatsapp-logo" style="font-size: 24px;"></i></a>
       <a href="#postular" style="flex: 1; display: flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 12px; background: linear-gradient(135deg, #ff7a2f, #ff5a00); color: #12070a; font-size: 16px; font-weight: 700;">Únete como proveedor</a>
     </div>
   </sc-if>
+
+  <!-- Botón flotante de WhatsApp. Fuera del <sc-if> de la barra móvil a
+       propósito: ese bloque se monta y desmonta con el scroll. -->
+  <a class="fd-wa" href="https://wa.me/56927094768?text=Hola%20%F0%9F%91%8B%20Vengo%20de%20la%20web%20de%20proveedores%20de%20Flash%20Drop%20y%20quiero%20publicar%20mi%20cat%C3%A1logo." target="_blank" rel="noopener" data-cta="whatsapp" data-ubicacion="boton-flotante" aria-label="Escríbenos por WhatsApp"><i aria-hidden="true" class="ph ph-whatsapp-logo"></i></a>
+
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
@@ -585,6 +613,30 @@ const ORIGEN = 'flashdrop-neon';
 // propósito: el Apps Script lo deriva a «Sin clasificar» y avisa al destinatario
 // de respaldo, así el lead queda registrado igual y el problema queda a la vista.
 const ORIGEN_DESCONOCIDO = 'origen-desconocido';
+
+// ═════════════════════════════════════════
+// CONTACTO POR WHATSAPP
+// ═════════════════════════════════════════
+
+// Número del equipo en el formato que espera wa.me: internacional, sin «+» ni
+// separadores. Si cambia, cambia en los TRES archivos (las dos fuentes .dc.html
+// y el index.html compilado).
+const WHATSAPP_NUMERO = '56927094768';
+
+// Los enlaces van escritos COMPLETOS en el markup, con su ?text= ya codificado,
+// y no se arman acá: así el botón sirve aunque este script no llegue a correr y
+// el destino se lee tal cual en el HTML. Lo que sí vive acá es el guardia de
+// _initTrackingCta(), que avisa si algún href quedó con otro número.
+
+// Un evento por TIPO DE ACCIÓN, con la ubicación como parámetro — el mismo
+// criterio de dispararConversion(). En GTM se puede mirar «agendar_llamada»
+// como intención sin importar dónde se tocó, y abrir por ubicación cuando
+// interesa comparar los cuatro emplazamientos.
+const EVENTOS_CTA = {
+  'whatsapp': 'contacto_whatsapp',
+  'agendar-llamada': 'agendar_llamada'
+};
+
 
 // ═════════════════════════════════════════
 // REGLAS DE VALIDACIÓN
@@ -634,6 +686,7 @@ class Component extends DCLogic {
     requestAnimationFrame(step);
   }
   componentDidMount() {
+    this._initTrackingCta();
     const form = document.getElementById('postular');
     if (form) {
       new IntersectionObserver((es) => es.forEach((e) => this.setState({ showCta: e.boundingClientRect.bottom < 40 })), { threshold: 0 }).observe(form);
@@ -655,6 +708,57 @@ class Component extends DCLogic {
     }), { threshold: 0.15 });
     [this.beneficiosRef, this.requisitosRef, this.ctaRef].forEach((r) => { if (r.current) reveal.observe(r.current); });
   }
+
+  // ═════════════════════════════════════════
+  // CLICS DE CONTACTO (Google Tag Manager)
+  //
+  // Un solo listener DELEGADO en document para todos los CTA, por dos razones:
+  // la barra móvil vive dentro de un <sc-if> y se monta y desmonta con el
+  // scroll (un listener colgado de ese nodo se perdería en cada ciclo), y así
+  // un CTA nuevo queda instrumentado con solo ponerle los data- en el markup.
+  //
+  // Se escucha 'click' y no la navegación: los enlaces abren en pestaña nueva,
+  // así que la página no se descarga y el push alcanza a salir sin tener que
+  // retener la navegación.
+  //
+  // Ojo con la diferencia respecto de generate_lead: ese se dispara junto con el
+  // panel de éxito porque hay un envío del que no se puede leer la respuesta.
+  // Acá no hay nada opaco que esperar — el clic ES el hecho que se cuenta.
+  // ═════════════════════════════════════════
+  _initTrackingCta() {
+    document.addEventListener('click', (e) => {
+      const cta = e.target && e.target.closest ? e.target.closest('[data-cta]') : null;
+      if (!cta) return;
+
+      const evento = EVENTOS_CTA[cta.getAttribute('data-cta')];
+      if (!evento) {
+        console.warn('[Flash Drop] data-cta sin evento asociado:', cta.getAttribute('data-cta'));
+        return;
+      }
+
+      try {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: evento,
+          ubicacion: cta.getAttribute('data-ubicacion') || '(sin ubicacion)',
+          origen: ORIGEN
+        });
+      } catch (err) {
+        console.warn('[Flash Drop] No se pudo empujar el evento a dataLayer:', err);
+      }
+    });
+
+    // Guardia de sincronización. Los href de WhatsApp están escritos a mano en
+    // los tres archivos; si una copia queda con otro número, esto lo dice en
+    // consola en vez de dejar el contacto yéndose a un teléfono que no es.
+    document.querySelectorAll('[data-cta]').forEach((a) => {
+      const href = a.getAttribute('href') || '';
+      if (href.indexOf('wa.me/') !== -1 && href.indexOf(WHATSAPP_NUMERO) === -1) {
+        console.error('[Flash Drop] CTA de WhatsApp con un número distinto de', WHATSAPP_NUMERO, '→', href);
+      }
+    });
+  }
+
 
   // ═════════════════════════════════════════
   // VALIDACIÓN
