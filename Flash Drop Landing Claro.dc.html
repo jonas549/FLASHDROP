@@ -550,6 +550,35 @@ const EVENTOS_CTA = {
 };
 
 
+// ═════════════════════════════════════════
+// REGISTRO COMPLETADO (conversión, vía GTM)
+// ═════════════════════════════════════════
+
+// El registro ocurre dentro del iframe de flashdrop.cl, que al completarse
+// avisa por postMessage: { tipo: 'flashdrop:registro', perfil: 'PROVIDER' | 'SELLER' }.
+// La conversión se dispara ACÁ, en la landing, porque el gclid y los parámetros
+// de campaña viven en este dominio y dentro del iframe se pierden.
+//
+// Se empuja a dataLayer y no se llama a gtag(): la página solo tiene GTM, y
+// GTM no define window.gtag. En GTM, el activador es el evento personalizado
+// «flashdrop_registro», y la etiqueta de conversión de Google Ads
+// (AW-18402841598) toma la etiqueta de la variable de dataLayer «ads_label».
+
+// Etiqueta de la acción de conversión de Google Ads. ← Cambiar acá cuando haya
+// una propia para esta landing.
+const ADS_LABEL_REGISTRO = 'uoJHCNi40ekcEP6nlMdE';
+
+// De dónde tiene que venir el aviso: el origen del iframe que inserta embed.js.
+const FLASHDROP_ORIGEN = 'https://www.flashdrop.cl';
+
+// Perfiles que manda flashdrop.cl. Cualquier otro valor viaja como
+// 'desconocido', para que el registro se cuente igual y el problema quede a la
+// vista en GA4.
+const PERFILES_REGISTRO = ['PROVIDER', 'SELLER'];
+
+// Marca en sessionStorage de que el registro de esta sesión ya se contó.
+const CLAVE_REGISTRO_CONTADO = 'fd-registro-contado';
+
 class Component extends DCLogic {
   constructor(props) {
     super(props);
@@ -583,6 +612,7 @@ class Component extends DCLogic {
       s.setAttribute('data-tipo', 'proveedor');
       embed.appendChild(s);
     }
+    this._initMedicionRegistro();
     this._initTrackingCta();
     const form = document.getElementById('postular');
     if (form) {
@@ -652,6 +682,51 @@ class Component extends DCLogic {
     });
   }
 
+
+  // ═════════════════════════════════════════
+  // REGISTRO COMPLETADO (ver las constantes del principio)
+  //
+  // Protección contra conversiones duplicadas, en tres capas:
+  // - el listener se instala una sola vez por ventana (window.__fdRegistroEscucha),
+  //   aunque el componente se vuelva a montar;
+  // - un aviso repetido en la misma página se ignora (bandera en memoria, que
+  //   sobrevive también a volver con «atrás» desde la bfcache);
+  // - y uno repetido en la misma sesión, tras recargar, también (sessionStorage).
+  // Además el aviso tiene que venir del origen de flashdrop.cl Y del iframe del
+  // embed: otro iframe del mismo origen (un anuncio, por ejemplo) no cuenta.
+  // ═════════════════════════════════════════
+  _initMedicionRegistro() {
+    if (window.__fdRegistroEscucha) return;
+    window.__fdRegistroEscucha = true;
+
+    let contado = false;
+    window.addEventListener('message', (e) => {
+      if (e.origin !== FLASHDROP_ORIGEN) return;
+      const d = e.data;
+      if (!d || typeof d !== 'object' || d.tipo !== 'flashdrop:registro') return;
+      const iframe = document.querySelector('[data-fd-embed] iframe');
+      if (!iframe || e.source !== iframe.contentWindow) return;
+
+      if (contado) return;
+      contado = true;
+      try {
+        if (sessionStorage.getItem(CLAVE_REGISTRO_CONTADO)) return;
+        sessionStorage.setItem(CLAVE_REGISTRO_CONTADO, '1');
+      } catch (err) { /* sin sessionStorage: queda la bandera en memoria */ }
+
+      try {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'flashdrop_registro',
+          perfil: PERFILES_REGISTRO.indexOf(d.perfil) !== -1 ? d.perfil : 'desconocido',
+          origen: ORIGEN,
+          ads_label: ADS_LABEL_REGISTRO
+        });
+      } catch (err) {
+        console.warn('[Flash Drop] No se pudo empujar el registro a dataLayer:', err);
+      }
+    });
+  }
 
   renderVals() {
     return {
