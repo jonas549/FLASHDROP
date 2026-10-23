@@ -117,6 +117,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     footer > div { justify-content: center; text-align: center; }
     footer img { margin-right: 0 !important; }
   }
+  /* Módulos catálogo y dropshipper */
+  @media (max-width: 1100px) and (min-width: 1001px), (max-width: 640px) {
+    [data-cat-grid] { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+  }
+  @media (min-width: 1001px) {
+    [data-cat-h2-line] { display: block; }
+  }
+  @media (max-width: 480px) {
+    [data-cat-tile] { flex-direction: column; align-items: flex-start !important; gap: 8px !important; }
+    [data-cat-tile] > span:last-child { font-size: 13px !important; }
+  }
+  @media (max-width: 760px) {
+    #catalogo a[data-cta], #dropshipper a[data-cta] { width: 100%; justify-content: center; min-height: 52px; }
+    #catalogo h2, #dropshipper h2 { max-width: none !important; }
+  }
+  /* Entre 761 y 960px el header no tiene espacio para un quinto enlace: se
+     oculta «Catálogo» y el menú queda igual que antes. */
+  @media (max-width: 960px) {
+    [data-nav-catalogo] { display: none !important; }
+  }
   @media (max-width: 480px) {
     [data-hero-h1] { font-size: 31px !important; }
     [data-h2] { font-size: 24px !important; }
@@ -133,6 +153,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <nav style="display: flex; align-items: center; gap: 30px; font-size: 14.5px; color: #42707A;" data-desktop-nav="1">
         <a href="#como-funciona" style="color: #42707A;" style-hover="color: #04333B;">Cómo funciona</a>
         <a href="#beneficios" style="color: #42707A;" style-hover="color: #04333B;">Beneficios</a>
+        <a href="#catalogo" data-nav-catalogo="1" style="color: #42707A;" style-hover="color: #04333B;">Catálogo</a>
         <a href="#requisitos" style="color: #42707A;" style-hover="color: #04333B;">Requisitos</a>
         <a href="#faq" style="color: #42707A;" style-hover="color: #04333B;">Preguntas</a>
       </nav>
@@ -390,6 +411,52 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+  <!-- ═════ MÓDULO CATÁLOGO ═════
+       Muestra las categorías activas de flashdrop.cl/catalogo y lleva al catálogo
+       en una pestaña nueva. Las categorías van escritas a mano (foto del catálogo
+       al 22-10-2026): si el cliente suma o quita una, se actualiza la lista acá.
+       Clics medidos en GTM como «ver_catalogo» (ver EVENTOS_CTA). -->
+  <section id="catalogo" style="position: relative; padding: clamp(56px,9vw,110px) clamp(20px,4vw,40px); overflow: hidden; border-top: 1px solid; border-image: linear-gradient(90deg, transparent, rgba(0,162,148,.45), rgba(224,95,12,.4), transparent) 1; background: linear-gradient(180deg, #FFFFFF, #EFFAF9);" data-screen-label="catalogo" data-pad="1">
+    <div style="position: absolute; width: 46vw; height: 46vw; right: -14vw; top: -10vw; border-radius: 50%; background: radial-gradient(circle, rgba(0,162,148,.18) 0%, transparent 70%); filter: blur(30px); pointer-events: none;"></div>
+    <div style="position: relative; max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(36px,5vw,72px); align-items: center;" data-grid="1">
+      <div>
+        <div style="display: inline-flex; margin-bottom: 18px; padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(0,162,148,.35); background: rgba(0,162,148,.07); font-family: 'Inter', sans-serif; font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: #00786D;">Catálogo actual</div>
+        <h2 style="margin: 0 0 20px; font-size: clamp(28px,3.8vw,40px); line-height: 1.12; font-weight: 700; letter-spacing: -.03em; text-wrap: balance;" data-h2="1">Revisa qué categorías <span style="color: #00A294;" data-cat-h2-line="1">ya se venden en Flash Drop</span></h2>
+        <p style="margin: 0 0 30px; max-width: 46ch; font-size: 16.5px; line-height: 1.6; color: #39676F;">Así ven el catálogo los dropshippers de la red: cada producto con su stock, precio sugerido y ganancia estimada. Mira dónde encaja el tuyo antes de postular.</p>
+        <a href="https://www.flashdrop.cl/catalogo?ref=landing-proveedores" target="_blank" rel="noopener" data-cta="catalogo" data-ubicacion="catalogo-boton" style="display: inline-flex; align-items: center; gap: 10px; padding: 16px 26px; border-radius: 12px; border: 1px solid rgba(0,162,148,.45); background: rgba(0,162,148,.08); color: #00786D; font-size: 16px; font-weight: 700;" style-hover="background: rgba(0,162,148,.16); color: #00A294; transform: translateY(-2px);">Ver catálogo completo <i aria-hidden="true" class="ph ph-arrow-up-right" style="font-size: 17px;"></i><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;">(se abre en una pestaña nueva)</span></a>
+        <p style="display: flex; align-items: flex-start; gap: 8px; margin: 22px 0 0; max-width: 44ch; font-size: 14px; line-height: 1.5; color: #5C868E;"><i aria-hidden="true" class="ph ph-info" style="font-size: 17px; color: #00A294; flex: none; margin-top: 1px;"></i><span>¿Tu categoría no aparece? <a href="#postular" style="color: #00786D; font-weight: 600; text-decoration: underline; text-underline-offset: 3px;" style-hover="color: #00A294;">Postula igual</a>: revisamos cada solicitud.</span></p>
+      </div>
+      <a href="https://www.flashdrop.cl/catalogo?ref=landing-proveedores" target="_blank" rel="noopener" data-cta="catalogo" data-ubicacion="catalogo-vista" aria-label="Abrir el catálogo de Flash Drop en una pestaña nueva" style="display: block; min-width: 0; border-radius: 22px; background: #ffffff; border: 1px solid rgba(1,64,75,.12); box-shadow: 0 24px 60px rgba(1,64,75,.12); overflow: hidden; color: #04333B; transition: transform .25s ease, box-shadow .25s ease;" style-hover="color: #04333B; transform: translateY(-4px); box-shadow: 0 30px 70px rgba(1,64,75,.18);">
+        <div style="display: flex; align-items: center; gap: 14px; padding: 13px 16px; background: #F3F9F8; border-bottom: 1px solid rgba(1,64,75,.08);">
+          <span aria-hidden="true" style="display: flex; gap: 6px; flex: none;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #FF8A4C;"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #FFC46B;"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #3CC2B5;"></span></span>
+          <span style="flex: 1; min-width: 0; display: flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 999px; background: #ffffff; border: 1px solid rgba(1,64,75,.08); font-size: 12.5px; color: #42707A; white-space: nowrap; overflow: hidden;"><i aria-hidden="true" class="ph ph-lock-simple" style="font-size: 13px; flex: none;"></i>flashdrop.cl/catalogo</span>
+          <i aria-hidden="true" class="ph ph-arrow-square-out" style="font-size: 18px; color: #00A294; flex: none;"></i>
+        </div>
+        <div style="padding: clamp(18px,2.4vw,26px);">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 16px;">
+            <strong style="font-size: 16px; font-weight: 700; color: #04333B;">Productos listos para vender</strong>
+            <span style="font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #6B9199; white-space: nowrap;">Categorías</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px;" data-cat-grid="1">
+            <div data-cat-tile="1" style="display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 12px; border-radius: 12px; border: 1px solid rgba(1,64,75,.09); background: #ffffff;"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: rgba(0,162,148,.12);"><i aria-hidden="true" class="ph ph-sparkle" style="font-size: 17px; color: #00A294;"></i></span><span style="min-width: 0; font-size: 13.5px; font-weight: 600; line-height: 1.25; color: #04333B;">Belleza y Salud</span></div>
+            <div data-cat-tile="1" style="display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 12px; border-radius: 12px; border: 1px solid rgba(1,64,75,.09); background: #ffffff;"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: rgba(255,106,26,.12);"><i aria-hidden="true" class="ph ph-house-line" style="font-size: 17px; color: #F06C0C;"></i></span><span style="min-width: 0; font-size: 13.5px; font-weight: 600; line-height: 1.25; color: #04333B;">Hogar</span></div>
+            <div data-cat-tile="1" style="display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 12px; border-radius: 12px; border: 1px solid rgba(1,64,75,.09); background: #ffffff;"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: rgba(0,162,148,.12);"><i aria-hidden="true" class="ph ph-cooking-pot" style="font-size: 17px; color: #00A294;"></i></span><span style="min-width: 0; font-size: 13.5px; font-weight: 600; line-height: 1.25; color: #04333B;">Cocina</span></div>
+            <div data-cat-tile="1" style="display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 12px; border-radius: 12px; border: 1px solid rgba(1,64,75,.09); background: #ffffff;"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: rgba(255,106,26,.12);"><i aria-hidden="true" class="ph ph-headphones" style="font-size: 17px; color: #F06C0C;"></i></span><span style="min-width: 0; font-size: 13.5px; font-weight: 600; line-height: 1.25; color: #04333B;">Audio y Video</span></div>
+            <div data-cat-tile="1" style="display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 12px; border-radius: 12px; border: 1px solid rgba(1,64,75,.09); background: #ffffff;"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: rgba(0,162,148,.12);"><i aria-hidden="true" class="ph ph-paw-print" style="font-size: 17px; color: #00A294;"></i></span><span style="min-width: 0; font-size: 13.5px; font-weight: 600; line-height: 1.25; color: #04333B;">Mascotas</span></div>
+            <div data-cat-tile="1" style="display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 12px; border-radius: 12px; border: 1px solid rgba(1,64,75,.09); background: #ffffff;"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: rgba(255,106,26,.12);"><i aria-hidden="true" class="ph ph-device-mobile" style="font-size: 17px; color: #F06C0C;"></i></span><span style="min-width: 0; font-size: 13.5px; font-weight: 600; line-height: 1.25; color: #04333B;">Electrónica</span></div>
+            <div data-cat-tile="1" style="display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 12px; border-radius: 12px; border: 1px solid rgba(1,64,75,.09); background: #ffffff;"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: rgba(0,162,148,.12);"><i aria-hidden="true" class="ph ph-t-shirt" style="font-size: 17px; color: #00A294;"></i></span><span style="min-width: 0; font-size: 13.5px; font-weight: 600; line-height: 1.25; color: #04333B;">Moda</span></div>
+            <div data-cat-tile="1" style="display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 12px; border-radius: 12px; border: 1px solid rgba(1,64,75,.09); background: #ffffff;"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: rgba(255,106,26,.12);"><i aria-hidden="true" class="ph ph-game-controller" style="font-size: 17px; color: #F06C0C;"></i></span><span style="min-width: 0; font-size: 13.5px; font-weight: 600; line-height: 1.25; color: #04333B;">Juegos y Juguetes</span></div>
+            <div data-cat-tile="1" style="display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 12px; border-radius: 12px; border: 1px solid rgba(1,64,75,.09); background: #ffffff;"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: rgba(0,162,148,.12);"><i aria-hidden="true" class="ph ph-wrench" style="font-size: 17px; color: #00A294;"></i></span><span style="min-width: 0; font-size: 13.5px; font-weight: 600; line-height: 1.25; color: #04333B;">Ferretería</span></div>
+            <div data-cat-tile="1" style="display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 12px; border-radius: 12px; border: 1px solid rgba(1,64,75,.09); background: #ffffff;"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: rgba(255,106,26,.12);"><i aria-hidden="true" class="ph ph-book-open" style="font-size: 17px; color: #F06C0C;"></i></span><span style="min-width: 0; font-size: 13.5px; font-weight: 600; line-height: 1.25; color: #04333B;">Librería</span></div>
+            <div data-cat-tile="1" style="display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 12px; border-radius: 12px; border: 1px solid rgba(1,64,75,.09); background: #ffffff;"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: rgba(0,162,148,.12);"><i aria-hidden="true" class="ph ph-drop" style="font-size: 17px; color: #00A294;"></i></span><span style="min-width: 0; font-size: 13.5px; font-weight: 600; line-height: 1.25; color: #04333B;">Perfumería</span></div>
+            <div data-cat-tile="1" style="display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 12px; border-radius: 12px; border: 1px solid rgba(1,64,75,.09); background: #ffffff;"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: rgba(255,106,26,.12);"><i aria-hidden="true" class="ph ph-washing-machine" style="font-size: 17px; color: #F06C0C;"></i></span><span style="min-width: 0; font-size: 13.5px; font-weight: 600; line-height: 1.25; color: #04333B;">Electrodomésticos</span></div>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 18px; padding-top: 16px; border-top: 1px dashed rgba(1,64,75,.14); font-size: 14px; font-weight: 600; color: #E0560A;">Ver productos por categoría <i aria-hidden="true" class="ph ph-arrow-right" style="font-size: 15px;"></i></div>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <section id="requisitos" ref="{{ requisitosRef }}" style="max-width: 1320px; margin: 0 auto; padding: clamp(56px,9vw,110px) clamp(20px,4vw,40px); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px,6vw,80px); align-items: center;" data-screen-label="requisitos" data-pad="1" data-grid="1">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; position: relative;">
       <div style="position: absolute; inset: 10% 12% 30%; border-radius: 50%; background: radial-gradient(circle, rgba(0,162,148,.2), transparent 70%); filter: blur(40px);"></div>
@@ -492,10 +559,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+  <!-- ═════ MÓDULO DROPSHIPPER ═════
+       Deriva a quien llegó buscando vender (no proveer) a la landing de
+       dropshippers. Va al final, después del CTA de proveedor, para no competir
+       con la conversión principal. Clics medidos en GTM como «ir_dropshipper». -->
+  <section id="dropshipper" style="position: relative; padding: clamp(56px,8vw,96px) clamp(20px,4vw,40px); overflow: hidden; background: #04333B; color: #FFFFFF;" data-screen-label="dropshipper" data-pad="1">
+    <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(90% 120% at 20% 50%, #000 10%, transparent 70%); -webkit-mask-image: radial-gradient(90% 120% at 20% 50%, #000 10%, transparent 70%); pointer-events: none;"></div>
+    <div style="position: absolute; width: 50vw; height: 50vw; left: -18vw; top: -20vw; border-radius: 50%; background: radial-gradient(circle, rgba(255,106,26,.28), transparent 70%); filter: blur(40px); pointer-events: none;"></div>
+    <div style="position: absolute; width: 44vw; height: 44vw; right: -14vw; bottom: -22vw; border-radius: 50%; background: radial-gradient(circle, rgba(0,162,148,.32), transparent 70%); filter: blur(40px); pointer-events: none;"></div>
+    <div style="position: relative; max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(32px,5vw,72px); align-items: center;" data-grid="1">
+      <div>
+        <div style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(255,138,76,.45); background: rgba(255,106,26,.12); font-family: 'Inter', sans-serif; font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: #FFB07F;"><i aria-hidden="true" class="ph ph-storefront" style="font-size: 14px;"></i>¿Eres dropshipper?</div>
+        <h2 style="margin: 0 0 18px; max-width: 18ch; font-size: clamp(28px,3.8vw,40px); line-height: 1.12; font-weight: 700; letter-spacing: -.03em; color: #FFFFFF;" data-h2="1">¿Quieres vender sin comprar stock? <span style="color: #FF8A4C;">Súmate como dropshipper.</span></h2>
+        <p style="margin: 0 0 30px; max-width: 46ch; font-size: 16.5px; line-height: 1.6; color: #B7D0D3;">Si llegaste buscando productos para vender, esta es tu puerta: eliges del catálogo, defines tu precio y cobras tu ganancia. Cero stock, cero riesgo, cero mensualidad.</p>
+        <a href="https://dropshippers.flashdrop.cl/?ref=landing-proveedores" target="_blank" rel="noopener" data-cta="dropshipper" data-ubicacion="modulo-dropshipper" style="display: inline-flex; align-items: center; gap: 10px; padding: 17px 28px; border-radius: 12px; background: linear-gradient(135deg, #ff7a2f, #ff5a00); color: #ffffff; font-size: 16px; font-weight: 700; box-shadow: 0 0 0 1px rgba(255,180,130,.5) inset, 0 14px 40px rgba(255,106,26,.35);" style-hover="color: #ffffff; transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(255,200,160,.7) inset, 0 18px 52px rgba(255,106,26,.5);">Quiero ser dropshipper <i aria-hidden="true" class="ph ph-arrow-up-right" style="font-size: 17px;"></i><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;">(se abre en una pestaña nueva)</span></a>
+      </div>
+      <div style="display: grid; gap: 12px; min-width: 0;">
+        <div style="display: flex; align-items: center; gap: 16px; padding: 16px 18px; border-radius: 16px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.05);">
+          <span style="width: 44px; height: 44px; flex: none; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(255,106,26,.16);"><i aria-hidden="true" class="ph ph-squares-four" style="font-size: 21px; color: #F06C0C;"></i></span>
+          <div style="min-width: 0;"><h3 style="margin: 0 0 3px; font-size: 15px; font-weight: 700; color: #FFFFFF;"><span style="color: #F06C0C; margin-right: 8px; font-family: 'Inter', sans-serif;">01</span>Elige productos del catálogo</h3><p style="margin: 0; font-size: 13.5px; line-height: 1.45; color: #A9C7CB;">Stock real en Chile y precio proveedor a la vista.</p></div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px; padding: 16px 18px; border-radius: 16px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.05);">
+          <span style="width: 44px; height: 44px; flex: none; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(0,162,148,.18);"><i aria-hidden="true" class="ph ph-share-network" style="font-size: 21px; color: #3CC2B5;"></i></span>
+          <div style="min-width: 0;"><h3 style="margin: 0 0 3px; font-size: 15px; font-weight: 700; color: #FFFFFF;"><span style="color: #3CC2B5; margin-right: 8px; font-family: 'Inter', sans-serif;">02</span>Publica y vende</h3><p style="margin: 0; font-size: 13.5px; line-height: 1.45; color: #A9C7CB;">En Instagram, TikTok, WhatsApp o tu tienda.</p></div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px; padding: 16px 18px; border-radius: 16px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.05);">
+          <span style="width: 44px; height: 44px; flex: none; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(255,106,26,.16);"><i aria-hidden="true" class="ph ph-hand-coins" style="font-size: 21px; color: #F06C0C;"></i></span>
+          <div style="min-width: 0;"><h3 style="margin: 0 0 3px; font-size: 15px; font-weight: 700; color: #FFFFFF;"><span style="color: #F06C0C; margin-right: 8px; font-family: 'Inter', sans-serif;">03</span>Despachamos, tú cobras</h3><p style="margin: 0; font-size: 13.5px; line-height: 1.45; color: #A9C7CB;">Pago contra entrega y tu ganancia a tu wallet.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer style="border-top: 1px solid rgba(1,64,75,.1);">
     <div style="max-width: 1320px; margin: 0 auto; padding: 28px clamp(20px,4vw,40px); display: flex; align-items: center; flex-wrap: wrap; gap: 20px; font-size: 13px; color: #5C868E;" data-pad="1">
       <img src="assets/opt/logo-flashdrop.webp" alt="Flash Drop" style="height: 32px; width: auto; margin-right: auto; opacity: .85;">
-      <a href="#" style="color: #5C868E;" style-hover="color: #04333B;">¿Eres dropshipper?</a>
+      <a href="https://dropshippers.flashdrop.cl/?ref=landing-proveedores" target="_blank" rel="noopener" data-cta="dropshipper" data-ubicacion="footer" style="color: #5C868E;" style-hover="color: #04333B;">¿Eres dropshipper?</a>
       <a href="#" style="color: #5C868E;" style-hover="color: #04333B;">Términos</a>
       <a href="#" style="color: #5C868E;" style-hover="color: #04333B;">Privacidad</a>
       <span>© 2026 Flash Drop · Chile</span>
@@ -546,7 +645,12 @@ const WHATSAPP_NUMERO = '56927094768';
 // interesa comparar los cuatro emplazamientos.
 const EVENTOS_CTA = {
   'whatsapp': 'contacto_whatsapp',
-  'agendar-llamada': 'agendar_llamada'
+  'agendar-llamada': 'agendar_llamada',
+  // Salidas a otras páginas de Flash Drop (abren en pestaña nueva).
+  // «ir_dropshipper» es la métrica de cuántos visitantes de esta landing en
+  // realidad venían a ser dropshippers; se abre por ubicación (módulo o footer).
+  'catalogo': 'ver_catalogo',
+  'dropshipper': 'ir_dropshipper'
 };
 
 
